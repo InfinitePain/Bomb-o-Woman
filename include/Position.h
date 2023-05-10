@@ -1,5 +1,14 @@
-#ifndef POSITION_H
-#define POSITION_H
+/*
+=============================================================================
+ Name        : Position.h
+ Author      : InfinitePain
+ License     : Apache License 2.0
+ Description : Header file for Bomb-o-Woman
+=============================================================================
+*/
+
+#ifndef POSITION_H_
+#define POSITION_H_
 
 #include <iostream>
 #include <string>
@@ -30,4 +39,5 @@ public:
 	~Position();
 };
 std::ostream& operator<< (std::ostream& os, const Position& rhs);
-#endif // !POSITION_H
+
+#endif /*POSITION_H_*/

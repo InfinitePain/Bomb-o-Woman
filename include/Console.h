@@ -1,5 +1,14 @@
-#ifndef CONSOLE_H
-#define CONSOLE_H
+/*
+=============================================================================
+ Name        : Console.h
+ Author      : InfinitePain
+ License     : Apache License 2.0
+ Description : Header file for Bomb-o-Woman
+=============================================================================
+*/
+
+#ifndef CONSOLE_H_
+#define CONSOLE_H_
 
 //https://ansi.gabebanks.net/
 //https://en.wikipedia.org/wiki/ANSI_escape_code#3-bit_and_4-bit
@@ -13,5 +22,5 @@ namespace Console
 
 	void zeichne_punkt(int x, int y, char c); //Zeichne Zeichen c an Position x, y
 }
-#endif
 
+#endif /*CONSOLE_H_*/

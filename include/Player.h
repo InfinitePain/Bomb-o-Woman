@@ -1,5 +1,14 @@
-#ifndef PLAYER_H
-#define PLAYER_H
+/*
+=============================================================================
+ Name        : Player.h
+ Author      : InfinitePain
+ License     : Apache License 2.0
+ Description : Header file for Bomb-o-Woman
+=============================================================================
+*/
+
+#ifndef PLAYER_H_
+#define PLAYER_H_
 
 #include "GameObject.h"
 #include "Position.h"
@@ -22,26 +31,26 @@ public:
 	//Initialisiert alle Attribute
 	Player(int player_number);
 
-	//Funktion wertet aus ob eine Bewegung in die Richtung möglich ist
-	//und für diese mit alle AKtionen aus.
+	//Funktion wertet aus ob eine Bewegung in die Richtung mï¿½glich ist
+	//und fï¿½r diese mit alle AKtionen aus.
 	bool move(int direction);
 
-	//Routine zur Ausführung der Spieleraktion
+	//Routine zur Ausfï¿½hrung der Spieleraktion
 	bool action();
 
 	//Dekrementiert die Anzahl der Leben
 	void decreaseLives();
 
-	//Gibt zurück ob eine Bewegung in diese Richtung möglich ist
+	//Gibt zurï¿½ck ob eine Bewegung in diese Richtung mï¿½glich ist
 	bool isMoveValid(int direction);
 
-	//Verändert den Spieler in Abhängigkeit des Zustands, z.B. timer-Dekrement
+	//Verï¿½ndert den Spieler in Abhï¿½ngigkeit des Zustands, z.B. timer-Dekrement
 	void proceed();
 
-	//Gibt die String repräsentation des Spieler zurück.
+	//Gibt die String reprï¿½sentation des Spieler zurï¿½ck.
 	std::string to_string();
 
-	//Gibt die Spielernummer zurück
+	//Gibt die Spielernummer zurï¿½ck
 	int getPlayerNumber();
 
 	//Ausgabe der Animation mit angegebenen Radius auf der Konsole
@@ -50,16 +59,17 @@ public:
 	//Funktion zur Bearbeitung eines eingesammelten PickUps
 	void processPickup();
 
-	//Gibt das Attribut lives zurück
+	//Gibt das Attribut lives zurï¿½ck
 	int getLives();
 
-	//Gibt das Attribut bombs zurück (Optional)
+	//Gibt das Attribut bombs zurï¿½ck (Optional)
 	int getBombs();
 
-	//Gibt das Attribut score zurück (Optional)
+	//Gibt das Attribut score zurï¿½ck (Optional)
 	int getScore();
 
-	//Überschreibt die Funktion der Basisklasse 
+	//ï¿½berschreibt die Funktion der Basisklasse 
 	void draw(bool offset);
 };
-#endif
+
+#endif /*PLAYER_H_*/

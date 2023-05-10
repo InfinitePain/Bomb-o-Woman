@@ -1,5 +1,14 @@
-#ifndef CURSOR_H
-#define CURSOR_H 
+/*
+=============================================================================
+ Name        : Cursor.h
+ Author      : InfinitePain
+ License     : Apache License 2.0
+ Description : Header file for Bomb-o-Woman
+=============================================================================
+*/
+
+#ifndef CURSOR_H_
+#define CURSOR_H_
 
 #define CURSOR_DUNKEL_GRAU	"\033[1;30m"
 #define CURSOR_WEISS		"\033[1;37m"
@@ -54,4 +63,5 @@ namespace Cursor
 	//Stellt die gespeicherte Cursor Position wieder her: \033[u
 	void gehezu_letzte_gespeicherte_position();
 }
-#endif
+
+#endif /*CURSOR_H_*/

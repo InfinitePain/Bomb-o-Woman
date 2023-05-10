@@ -1,4 +1,15 @@
-#pragma once
+/*
+=============================================================================
+ Name        : Configuration.h
+ Author      : InfinitePain
+ License     : Apache License 2.0
+ Description : Header file for Bomb-o-Woman
+=============================================================================
+*/
+
+#ifndef CONFIGURATION_H_
+#define CONFIGURATION_H_
+
 namespace Configuration
 {
 	const int PLAYGROUND_XSIZE = 20 ;
@@ -59,3 +70,5 @@ namespace Configuration
 	const int POINTS_BLAST_ROCK = 5;
 	const int POINTS_BLAST_PLAYER = 100;
 };
+
+#endif /*CONFIGURATION_H_*/

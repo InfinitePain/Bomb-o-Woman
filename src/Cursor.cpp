@@ -1,3 +1,12 @@
+/*
+=============================================================================
+ Name        : Cursor.cpp
+ Author      : InfinitePain
+ License     : Apache License 2.0
+ Description : Source file for Bomb-o-Woman
+=============================================================================
+*/
+
 #include "Cursor.h"
 #include <iostream>
 

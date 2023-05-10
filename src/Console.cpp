@@ -1,5 +1,14 @@
-#include <iostream>
+/*
+=============================================================================
+ Name        : Console.cpp
+ Author      : InfinitePain
+ License     : Apache License 2.0
+ Description : Source file for Bomb-o-Woman
+=============================================================================
+*/
+
 #include "Console.h"
+#include <iostream>
 #include "Cursor.h"
 
 
@@ -32,5 +41,3 @@ void Console::zeichne_punkt(int x, int y, char c)
 	Cursor::bewegen(x, y);
 	std::cout << c;
 }
-
-
