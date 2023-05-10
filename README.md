@@ -1,5 +1,3 @@
-Based on the given compressed text and the example, here's a README file for the Bomb-o-woman game project:
-
 # Bomb-o-woman Game
 
 This repository contains a C++ program developed as an assignment for the "Programmieren 2" course in the Technical Computer Science program at the Augsburg University of Applied Sciences. The goal of the project is to learn and apply the concepts of object-oriented programming (OOP), such as classes and instances interaction, data encapsulation, and inheritance. The game is designed for 2-4 players, where players collect bombs and power-ups, destroy rocks and opponents for points, and the game ends when a player has no lives left. The player with the highest points wins.
