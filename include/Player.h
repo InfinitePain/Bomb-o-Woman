@@ -19,6 +19,7 @@ protected:
 	bool ghost;
 	bool trap;
 	bool explosive;
+	bool superbomb;
 
 	int player_number;
 	int lives;
@@ -54,16 +55,13 @@ public:
 	int getPlayerNumber();
 
 	//Ausgabe der Animation mit angegebenen Radius auf der Konsole
-	void explosionAnimation(int radius);
+	void explosionAnimation(int radius, Position pos);
 
 	//Funktion zur Bearbeitung eines eingesammelten PickUps
 	void processPickup();
 
 	//Gibt das Attribut lives zur�ck
 	int getLives();
-
-	//Gibt das Attribut bombs zur�ck (Optional)
-	int getBombs();
 
 	//Gibt das Attribut score zur�ck (Optional)
 	int getScore();
