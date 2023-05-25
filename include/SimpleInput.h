@@ -12,7 +12,6 @@
 
 class SimpleInput
 {
-
 public:
 	SimpleInput();
 	~SimpleInput();
