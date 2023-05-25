@@ -12,12 +12,12 @@
 
 namespace Configuration
 {
-	const int PLAYGROUND_XSIZE = 20 ;
-	const int PLAYGROUND_YSIZE = 20;
+	const int PLAYGROUND_XSIZE = 12 ;
+	const int PLAYGROUND_YSIZE = 12;
 	const int PLAYGROUND_OFFSETX = 1;
 	const int PLAYGROUND_OFFSETY = 1;
 
-	const int PLAYGROUND_BORDERWIDTH = 1;
+	const int PLAYGROUND_BORDERWIDTH = 2;
 
 	//GAMEOBJECT - INPUT
 	const int GAMEOBJECT_MOVE_UP = 0;
