@@ -17,6 +17,7 @@ class Playground;
 
 class GameObject
 {
+	friend class Playground;
 protected:
 	//Position innerhalb des Spielfeldes
 	Position p;
@@ -24,6 +25,8 @@ protected:
 	char symbol;
 	//Zeiger auf das Spielfeld 
 	Playground* playground = NULL;
+	//Zeiger auf das Top-Objekt
+	GameObject* top_ptr = NULL;
 
 public:
 	//Leerer Konstruktor (setzt nur das symbol auf ' ')
@@ -36,6 +39,8 @@ public:
 	void setPosition(Position p);
 	//�bernimmt den �bergebenen Zeiger 
 	void setPlayground(Playground* pg);
+	//�bernimmt den �bergebenen Zeiger 
+	void setTop(GameObject* go_ptr);
 	//Gibt das Attribut zur�ck
 	Position getPosition();
 	//Gibt das Zeichen des GameObjektes zur�ck
