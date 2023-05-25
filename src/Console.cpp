@@ -11,7 +11,6 @@
 #include <iostream>
 #include "Cursor.h"
 
-
 //Leere Bildschirm, verstecke Cursor, Position 0,0
 void Console::init()
 {
