@@ -12,7 +12,9 @@
 #include "Configuration.h"
 #include "Console.h"
 
-Playground::Playground() {}
+Playground::Playground() {
+	init();
+}
 
 void Playground::init() {
 	for (int i = 0; i < Configuration::PLAYGROUND_XSIZE; i++) {
@@ -45,7 +47,8 @@ void Playground::removeGameObject(GameObject* go_ptr) {
 	}
 	if (pGameObject->top_ptr == nullptr) {
 		area[x][y] = nullptr;
-		Console::zeichne_punkt(x, y, ' ');
+		GameObject::Space.setPosition(Position(x, y));
+		GameObject::Space.draw(true);
 	}
 	else {
 		pGameObject->top_ptr = nullptr;
@@ -89,7 +92,7 @@ bool Playground::isFree(int x, int y) {
 
 bool Playground::isPickup(int x, int y) {
 	if (Playground::inbound(x, y)) {
-		GameObject* pGameObject = Playground::getGameObjectAtPos(x, y);
+		GameObject* pGameObject = getGameObjectAtPos(x, y);
 		if (pGameObject != nullptr) {
 			char type = pGameObject->getType();
 			return type == Configuration::GAMEOBJECT_GHOST || type == Configuration::GAMEOBJECT_BOMB || type == Configuration::GAMEOBJECT_SUPERBOMB || type == Configuration::GAMEOBJECT_PORTAL || type == Configuration::GAMEOBJECT_TRAP;
@@ -104,6 +107,10 @@ void Playground::draw() {
 			GameObject* pGameObject = area[i][j];
 			if (pGameObject != nullptr) {
 				pGameObject->draw(true);
+			}
+			else {
+				GameObject::Space.setPosition(Position(i, j));
+				GameObject::Space.draw(true);
 			}
 		}
 	}
@@ -182,7 +189,8 @@ std::vector<GameObject*> Playground::neighbourhood(int distance, GameObject* go_
 		for (int j = startY; j <= endY; j++) {
 			if (pos.distanceManhattan(Position(i, j)) <= distance) {
 				GameObject* pGameObject = getGameObjectAtPos(i, j);
-				if (pGameObject != nullptr && Playground::isLOS(&pos, &pGameObject->getPosition())) {
+				Position objectpos = go_ptr->getPosition();
+				if (pGameObject != nullptr && Playground::isLOS(&pos, &objectpos)) {
 					neighbourhood.push_back(pGameObject);
 				}
 			}
@@ -201,7 +209,8 @@ std::vector<Position> Playground::neighbourhood(int distance, Position* pos_ptr)
 		for (int j = startY; j <= endY; j++) {
 			if (pos_ptr->distanceManhattan(Position(i, j)) <= distance) {
 				GameObject* pGameObject = getGameObjectAtPos(i, j);
-				if (pGameObject != nullptr && Playground::isLOS(pos_ptr, &pGameObject->getPosition())) {
+				Position objectpos = pGameObject->getPosition();
+				if (pGameObject != nullptr && Playground::isLOS(pos_ptr, &objectpos)) {
 					neighbourhood.push_back(Position(i, j));
 				}
 			}

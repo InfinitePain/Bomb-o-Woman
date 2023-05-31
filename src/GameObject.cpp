@@ -10,6 +10,8 @@
 #include "GameObject.h"
 #include "Console.h"
 
+GameObject GameObject::Space = GameObject(Position(0, 0), ' ');
+
 void GameObject::setPosition(Position p) {
 	this->p.setX(p.getX());
 	this->p.setY(p.getY());
@@ -33,7 +35,7 @@ char GameObject::getType() {
 
 void GameObject::draw(bool offset) {
 	if (offset) {
-		Console::zeichne_punkt(p.getX() + Configuration::PLAYGROUND_OFFSETX  + Configuration::PLAYGROUND_BORDERWIDTH, p.getY() + Configuration::PLAYGROUND_OFFSETY + Configuration::PLAYGROUND_BORDERWIDTH, symbol);
+		Console::zeichne_punkt(p.getX() + Configuration::PLAYGROUND_OFFSETX, p.getY() + Configuration::PLAYGROUND_OFFSETY, symbol);
 	}
 	else {
 		Console::zeichne_punkt(p.getX(), p.getY(), symbol);

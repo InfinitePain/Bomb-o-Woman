@@ -29,6 +29,7 @@ protected:
 	GameObject* top_ptr = NULL;
 
 public:
+	static GameObject Space;
 	//Leerer Konstruktor (setzt nur das symbol auf ' ')
 	GameObject();
 	//3-Param Konstruktor setzt die Attribute auf die �bergebenen Parameter

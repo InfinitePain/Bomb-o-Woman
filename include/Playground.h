@@ -22,10 +22,11 @@ class Playground
 {
 	friend class GameObject;
 private:
-	void init();
-public:
 	//Index represents coordinates within playground
 	GameObject* area[(int)Configuration::PLAYGROUND_XSIZE][(int)Configuration::PLAYGROUND_YSIZE];
+private:
+	void init();
+public:
 
 	Playground();
 
