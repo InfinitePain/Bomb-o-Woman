@@ -13,24 +13,37 @@
 #include "Player.h"
 #include "Playground.h"
 #include "GameObject.h"
+#include "Input.h"
 
 class Game {
 private:
-	Player* player[4];
+	Player* player[Configuration::NUMBER_OF_PLAYERS];
 	std::vector<GameObject*> rock;
 	std::vector<GameObject*> wall;
 	std::vector<GameObject*> bombs;
 	Playground* pg = nullptr;
+	Input input;
+	std::chrono::milliseconds timeSpent;
+	std::chrono::milliseconds lastUpdateTime ;
 private:
 	void drawLogo();
 	void drawLegend();
 	void drawPlayerStats(int player_number);
 	void drawScoreboard();
-	void init(std::string filename);
-	bool allPlayersAlive();
+	void drawPauseInfo();
+	bool is_game_over();
+	void drawPlayerStatsForAll();
+	bool proceedForAllPlayers();
+	int getPlayerIndexFromDirection(int direction);
+	int getMinBombTimer();
+	int getDirectionFromInput(int timer);
+	void updateGame(std::chrono::high_resolution_clock::time_point& lastUpdateTime);
+	bool timeToUpdate(std::chrono::high_resolution_clock::time_point& lastUpdateTime, int timer);
+	void processPlayerInput(int direction);
 public:
-	void run();
-	Game();
+	int run();
+	Game(std::string filename = "stage1.txt");
+	~Game();
 };
 
 

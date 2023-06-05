@@ -25,7 +25,8 @@ namespace Configuration
 	const int GAMEOBJECT_MOVE_RIGHT = 2;
 	const int GAMEOBJECT_MOVE_LEFT = 3;
 	const int GAMEOBJECT_ACTION = 4;
-
+	const int QUIT = -2;
+	const int TIMEOUT = -1;
 
 	//GAMEOBJECT - MOVEABLE
 	const char GAMEOBJECT_PLAYER_1 = 'X';
@@ -53,7 +54,7 @@ namespace Configuration
 	const int GAMEMODE = GAMEMODE_ENDLESS_BOMBS;
 	const int NUMBER_OF_PLAYERS = 2;
 	const int GAMESPEED = 50;
-	const int BOMB_TIMER = 30;
+	const int BOMB_TIMER = 5000;
 	const int BOMB_RADIUS = 3;
 	const int SUPERBOMB_TIMER = 200;
 	const int SUPERBOMB_RADIUS = 8;

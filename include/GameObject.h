@@ -29,9 +29,6 @@ protected:
 	GameObject* top_ptr = NULL;
 
 public:
-	static GameObject Space;
-	//Leerer Konstruktor (setzt nur das symbol auf ' ')
-	GameObject();
 	//3-Param Konstruktor setzt die Attribute auf die �bergebenen Parameter
 	GameObject(Position p, char symbol, Playground* playground = NULL);
 	//Funktion zeichnet das Symbol an der entsprechenden Stelle (mit oder ohne offset)
@@ -46,6 +43,7 @@ public:
 	Position getPosition();
 	//Gibt das Zeichen des GameObjektes zur�ck
 	char getType();
+	virtual ~GameObject() {};
 };
 
 #endif /*GAMEOBJECT_H_*/

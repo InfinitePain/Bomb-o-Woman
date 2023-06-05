@@ -11,6 +11,8 @@
 #include <sstream>
 #include <iostream>
 #include <string>
+#include "Configuration.h"
+#include "Console.h"
 
 void Position::setX(int x) {
 	this->x = x;
@@ -48,6 +50,15 @@ Position Position::operator+ (const Position& rhs) {
 
 Position Position::operator- (const Position& rhs) {
 	return Position(this->x - rhs.x, this->y - rhs.y);
+}
+
+void Position::draw(bool offset, char symbol) {
+	if (offset) {
+		Console::zeichne_punkt(x + Configuration::PLAYGROUND_OFFSETX, y + Configuration::PLAYGROUND_OFFSETY, symbol);
+	}
+	else {
+		Console::zeichne_punkt(x, y, symbol);
+	}
 }
 
 std::ostream& operator<< (std::ostream& os, const Position& rhs) {

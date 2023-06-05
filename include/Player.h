@@ -12,9 +12,10 @@
 
 #include "GameObject.h"
 #include "Position.h"
+#include <vector>
+#include "Input.h"
 
-class Player : public GameObject
-{
+class Player : public GameObject {
 protected:
 	bool ghost;
 	bool trap;
@@ -26,11 +27,12 @@ protected:
 	int score;
 	int timer;
 
+	Input input;
 	GameObject* bomb_ptr;
 
 public:
 	//Initialisiert alle Attribute
-	Player(int player_number);
+	Player(char symbol, Playground* playground, Position p);
 
 	//Funktion wertet aus ob eine Bewegung in die Richtung m�glich ist
 	//und f�r diese mit alle AKtionen aus.
@@ -46,7 +48,7 @@ public:
 	bool isMoveValid(int direction);
 
 	//Ver�ndert den Spieler in Abh�ngigkeit des Zustands, z.B. timer-Dekrement
-	void proceed();
+	bool proceed();
 
 	//Gibt die String repr�sentation des Spieler zur�ck.
 	std::string to_string();
@@ -66,8 +68,11 @@ public:
 	//Gibt das Attribut score zur�ck (Optional)
 	int getScore();
 
+	int getTimer();
+
 	//�berschreibt die Funktion der Basisklasse 
 	void draw(bool offset);
+	~Player() {};
 };
 
 #endif /*PLAYER_H_*/

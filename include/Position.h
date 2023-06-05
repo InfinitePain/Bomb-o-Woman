@@ -33,6 +33,7 @@ public:
 
 	Position operator+ (const Position& rhs);
 	Position operator- (const Position& rhs);
+	void draw(bool offset, char symbol);
 
 	Position();
 	Position(int x, int y);

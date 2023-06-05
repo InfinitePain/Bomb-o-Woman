@@ -10,11 +10,7 @@ The project consists of several files and classes:
 - `Position`: Defines the class representing positions on the game board.
 - `GameObject`: Defines the base class for all game objects, including players, bombs, power-ups, and obstacles.
 - `Player`: Defines the class for player characters, including their actions and movement.
-
-Helper classes:
-
-- `SimpleScreen`: Provides an interface for screen rendering.
-- `SimpleInput`: Handles user input.
+- `Input` : Defines the class for input handling.
 
 ## Learning Objectives
 
@@ -33,15 +29,15 @@ To compile and run the program, follow these steps:
 2. Open a terminal and navigate to the directory containing the source files.
 3. Compile the program using the following command:
 
-```
-g++ -o bomb_o_woman main.cpp
-```
+    ``` bash
+    g++ -o bomb_o_woman ./src/*.cpp
+    ```
 
 4. Run the compiled program with:
 
-```
-./bomb_o_woman
-```
+    ``` bash
+    ./bomb_o_woman
+    ```
 
 ## Contributing
 

@@ -15,7 +15,6 @@
 #include <cstdlib>
 #include <ctime>
 #include <vector>
-//#include "Player.h"
 class GameObject;
 
 class Playground
@@ -24,8 +23,6 @@ class Playground
 private:
 	//Index represents coordinates within playground
 	GameObject* area[(int)Configuration::PLAYGROUND_XSIZE][(int)Configuration::PLAYGROUND_YSIZE];
-private:
-	void init();
 public:
 
 	Playground();
@@ -35,10 +32,6 @@ public:
 
 	//"Nullt" den Zeiger im area - Attribut an Index [x] [y] der Position.
 	void removeGameObject(GameObject* go_ptr);
-
-	//"Nullt" den Zeiger im area - Attribut an Index [x] [y] der Position.
-	void removeGameObject(Position pos);
-
 
 	GameObject* collectGameObject(Position* pos_ptr);
 
@@ -55,8 +48,7 @@ public:
 	bool inbound(int x, int y);
 	bool isLOS(Position* pos1_ptr, Position* pos2_ptr);
 
-	std::vector <GameObject*> neighbourhood(int distance, GameObject* go_ptr);
-	std::vector <Position> neighbourhood(int distance, Position* pos_ptr);
+	std::vector <GameObject*> neighbourhood(int distance, Position pos);
 
 };
 

@@ -10,7 +10,6 @@
 #include "GameObject.h"
 #include "Console.h"
 
-GameObject GameObject::Space = GameObject(Position(0, 0), ' ');
 
 void GameObject::setPosition(Position p) {
 	this->p.setX(p.getX());
@@ -44,7 +43,5 @@ void GameObject::draw(bool offset) {
 		top_ptr->draw(offset);
 	}
 }
-
-GameObject::GameObject() : symbol(' ') {}
 
 GameObject::GameObject(Position p, char symbol, Playground* playground) : p(p), symbol(symbol), playground(playground) {}

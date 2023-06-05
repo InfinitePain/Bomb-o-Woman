@@ -10,10 +10,26 @@
 #include "Player.h"
 #include "Console.h"
 #include "Playground.h"
+#include <unistd.h>
 
-Player::Player(int player_number): GameObject() {
-	this->player_number = player_number;
+int Player::getPlayerNumber() {
+	switch (this->symbol) {
+	case Configuration::GAMEOBJECT_PLAYER_1:
+		return 1;
+	case Configuration::GAMEOBJECT_PLAYER_2:
+		return 2;
+	case Configuration::GAMEOBJECT_PLAYER_3:
+		return 3;
+	case Configuration::GAMEOBJECT_PLAYER_4:
+		return 4;
+	default:
+		return -1;
+	}
+}
+
+Player::Player(char symbol, Playground* playground, Position p) : GameObject(p, symbol, playground) {
 	this->lives = Configuration::PLAYER_LIVES;
+	this->player_number = getPlayerNumber();
 	this->score = 0;
 	this->timer = 0;
 	this->ghost = false;
@@ -21,20 +37,6 @@ Player::Player(int player_number): GameObject() {
 	this->explosive = false;
 	this->superbomb = false;
 	this->bomb_ptr = nullptr;
-	switch (player_number) {
-		case 1:
-			this->symbol = Configuration::GAMEOBJECT_PLAYER_1;
-			break;
-		case 2:
-			this->symbol = Configuration::GAMEOBJECT_PLAYER_2;
-			break;
-		case 3:
-			this->symbol = Configuration::GAMEOBJECT_PLAYER_3;
-			break;
-		case 4:
-			this->symbol = Configuration::GAMEOBJECT_PLAYER_4;
-			break;
-	}
 }
 
 bool Player::move(int direction) {
@@ -68,26 +70,21 @@ void Player::processPickup() {
 	switch (pGameObject->getType()) {
 	case Configuration::GAMEOBJECT_BOMB:
 		bomb_ptr = pGameObject;
-		playground->removeGameObject(pGameObject);
 		break;
 	case Configuration::GAMEOBJECT_SUPERBOMB:
 		bomb_ptr = pGameObject;
 		superbomb = true;
-		playground->removeGameObject(pGameObject);
 		break;
 	case Configuration::GAMEOBJECT_PORTAL:
 		pGameObject->setPosition(playground->getRandomFreePosition());
 		break;
 	case Configuration::GAMEOBJECT_TRAP:
 		trap = true;
-		playground->removeGameObject(pGameObject);
 		break;
 	case Configuration::GAMEOBJECT_GHOST:
 		ghost = true;
-		playground->removeGameObject(pGameObject);
 		break;
 	}
-	delete pGameObject;
 }
 
 bool Player::isMoveValid(int direction) {
@@ -106,6 +103,8 @@ bool Player::isMoveValid(int direction) {
 	case Configuration::GAMEOBJECT_MOVE_RIGHT:
 		new_x++;
 		break;
+	default:
+		return false;
 	}
 	GameObject* pGameObject = playground->getGameObjectAtPos(new_x, new_y);
 	if (playground->isFree(new_x, new_y) || playground->isPickup(new_x, new_y)) {
@@ -118,29 +117,31 @@ bool Player::action() {
 	if (!explosive && bomb_ptr != nullptr) {
 		explosive = true;
 		timer = Configuration::BOMB_TIMER;
+		bomb_ptr->setPosition(this->p);
 		playground->addGameObject(bomb_ptr);
-		setTop(bomb_ptr);
 		return true;
 	}
 	return false;
 }
 
-void Player::proceed() {
+bool Player::proceed() {
 	if (!explosive) {
-		return;
+		return false;
 	}
-	timer--;
-	if (timer != 0) {
-		return;
+	timer -= 1000;
+	if (timer > 0) {
+		return true;
 	}
+	timer = 0;
 	int radius = superbomb ? Configuration::SUPERBOMB_RADIUS : Configuration::BOMB_RADIUS;
 	Position bomb_position = bomb_ptr->getPosition();
+	playground->removeGameObject(bomb_ptr);
 	bomb_ptr->setPosition(playground->getRandomFreePosition());
 	playground->addGameObject(bomb_ptr);
 	bomb_ptr = NULL;
 	explosive = false;
 
-	std::vector<GameObject*> affected_objects = playground->neighbourhood(radius, this);
+	std::vector<GameObject*> affected_objects = playground->neighbourhood(radius, bomb_position);
 	for (GameObject* pGameObject : affected_objects) {
 		Player* other_player = dynamic_cast<Player*>(pGameObject);
 		if (other_player != nullptr) {
@@ -153,8 +154,9 @@ void Player::proceed() {
 			playground->removeGameObject(pGameObject);
 			score += Configuration::POINTS_BLAST_ROCK;
 		}
-    }
+	}
 	explosionAnimation(radius, bomb_position);
+	return true;
 }
 
 void Player::decreaseLives() {
@@ -166,16 +168,32 @@ std::string Player::to_string() {
 	ss << "***********************\n";
 	ss << "* Player " << player_number << "  -  " << this->getType() << "      *\n";
 	ss << "***********************\n";
-    ss << "* Status:   " << (explosive ? "Explosive" : "Normal") << std::string(10 - (explosive ? 9 : 6), ' ') << "*\n";
-    ss << "* Timer :   " << timer << std::string(10 - std::to_string(timer).length(), ' ') << "*\n";
-    ss << "* Lives :   " << lives << std::string(10 - std::to_string(lives).length(), ' ') << "*\n";
-    ss << "* Score :   " << score << std::string(10 - std::to_string(score).length(), ' ') << "*\n";
+	ss << "* Status:   " << (explosive ? "Explosive" : "Normal") << std::string(10 - (explosive ? 9 : 6), ' ') << "*\n";
+	ss << "* Timer :   " << timer / 1000 << std::string(10 - std::to_string(timer / 1000).length(), ' ') << "*\n";
+	ss << "* Lives :   " << lives << std::string(10 - std::to_string(lives).length(), ' ') << "*\n";
+	ss << "* Score :   " << score << std::string(10 - std::to_string(score).length(), ' ') << "*\n";
 	ss << "***********************";
 	return ss.str();
 }
 
 void Player::explosionAnimation(int radius, Position pos) {
-	//TODO Implement
+	for (int dir = 0; dir < 4; dir++) {
+		for (int offset = 1; offset <= radius; offset++) {
+			int x = pos.getX() + (dir == 1 ? offset : dir == 3 ? -offset : 0);
+			int y = pos.getY() + (dir == 0 ? -offset : dir == 2 ? offset : 0);
+
+			if (!playground->inbound(x, y)) break;
+
+			Position newPos(x, y);
+			GameObject* pGameObject = playground->getGameObjectAtPos(newPos.getX(), newPos.getY());
+			if (pGameObject != nullptr && pGameObject->getType() == Configuration::GAMEOBJECT_WALL) break;
+			if (!playground->isLOS(&pos, &newPos)) break;
+
+			newPos.draw(true, 'C');
+		}
+	}
+
+	usleep(500000);
 }
 
 int Player::getLives() {
@@ -184,6 +202,10 @@ int Player::getLives() {
 
 int Player::getScore() {
 	return score;
+}
+
+int Player::getTimer() {
+	return timer;
 }
 
 void Player::draw(bool offset) {
