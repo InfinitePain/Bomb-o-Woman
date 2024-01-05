@@ -117,11 +117,13 @@ int Input::processInput(int timeout) const {
 	auto start = std::chrono::high_resolution_clock::now();
 
 	while (true) {
-		int ret = poll(fds, 1, timeout);
+        int ret = poll(fds, 1, timeout);
 
-		if (ret > 0) {
-			int pollTimeout = timeout == 0 ? -1 : timeout;
-			int ret = poll(fds, 1, pollTimeout);
+        if (ret > 0) {
+            // Read a character from stdin
+            if (read(STDIN_FILENO, &c, 1) != 1) {
+                return -7; // Error reading character
+            }
 
 			// Check if the first character is an escape character
 			if (c == 27) {

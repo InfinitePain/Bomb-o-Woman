@@ -7,7 +7,11 @@ OBJ = $(patsubst src/%.cpp, bin/%.o, $(SRC))
 TARGET = bin/$(notdir $(CURDIR))
 
 # Default make
-all: $(TARGET)
+all: bin $(TARGET)
+
+# Ensure the bin directory exists
+bin:
+	mkdir -p bin
 
 # Rule for creating the object files
 bin/%.o: src/%.cpp $(DEPS)
